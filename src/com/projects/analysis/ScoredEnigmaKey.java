@@ -1,6 +1,6 @@
 package com.projects.analysis;
 
-import com.projects.enigma.Enigma;
+// import com.projects.enigma.Enigma;
 
 public class ScoredEnigmaKey extends EnigmaKey implements Comparable<ScoredEnigmaKey> {
     float score;

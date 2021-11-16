@@ -121,7 +121,7 @@ public class EnigmaAnalysis {
 
     public static String findPlug(EnigmaKey key, char[] ciphertext, FitnessFunction f) {
         Set<Integer> unpluggedCharacters = Plugboard.getUnpluggedCharacters(key.plugboard);
-        Set<Integer> charCount = new HashSet<Integer>();
+        // Set<Integer> charCount = new HashSet<Integer>();
 
         EnigmaKey currentKey = new EnigmaKey(key);
         String originalPlugs = currentKey.plugboard;
