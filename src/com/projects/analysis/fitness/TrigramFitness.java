@@ -1,4 +1,4 @@
-package com.mikepound.analysis.fitness;
+package com.projects.analysis.fitness;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -15,17 +15,16 @@ public class TrigramFitness extends FitnessFunction {
     public TrigramFitness() {
         // Trigrams
         this.trigrams = new float[26426];
-        Arrays.fill(this.trigrams, (float)Math.log10(epsilon));
+        Arrays.fill(this.trigrams, (float) Math.log10(epsilon));
         try (final InputStream is = TrigramFitness.class.getResourceAsStream("/data/trigrams");
-             final Reader r = new InputStreamReader(is, StandardCharsets.UTF_8);
-             final BufferedReader br = new BufferedReader(r);
-             final Stream<String> lines = br.lines()) {
-            lines.map(line -> line.split(","))
-                    .forEach(s -> {
-                        String key = s[0];
-                        int i = triIndex(key.charAt(0) - 65, key.charAt(1) - 65, key.charAt(2) - 65);
-                        this.trigrams[i] = Float.parseFloat(s[1]);
-                    });
+                final Reader r = new InputStreamReader(is, StandardCharsets.UTF_8);
+                final BufferedReader br = new BufferedReader(r);
+                final Stream<String> lines = br.lines()) {
+            lines.map(line -> line.split(",")).forEach(s -> {
+                String key = s[0];
+                int i = triIndex(key.charAt(0) - 65, key.charAt(1) - 65, key.charAt(2) - 65);
+                this.trigrams[i] = Float.parseFloat(s[1]);
+            });
         } catch (IOException e) {
             this.trigrams = null;
         }

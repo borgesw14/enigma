@@ -1,4 +1,4 @@
-package com.mikepound.enigma;
+package com.projects.enigma;
 
 public class Rotor {
     protected String name;
@@ -20,39 +20,39 @@ public class Rotor {
 
     public static Rotor Create(String name, int rotorPosition, int ringSetting) {
         switch (name) {
-            case "I":
-                return new Rotor("I","EKMFLGDQVZNTOWYHXUSPAIBRCJ", rotorPosition, 16, ringSetting);
-            case "II":
-                return new Rotor("II","AJDKSIRUXBLHWTMCQGZNPYFVOE", rotorPosition, 4, ringSetting);
-            case "III":
-                return new Rotor("III","BDFHJLCPRTXVZNYEIWGAKMUSQO", rotorPosition, 21, ringSetting);
-            case "IV":
-                return new Rotor("IV","ESOVPZJAYQUIRHXLNFTGKDCMWB", rotorPosition, 9, ringSetting);
-            case "V":
-                return new Rotor("V","VZBRGITYUPSDNHLXAWMJQOFECK", rotorPosition, 25, ringSetting);
-            case "VI":
-                return new Rotor("VI","JPGVOUMFYQBENHZRDKASXLICTW", rotorPosition, 0, ringSetting) {
-                    @Override
-                    public boolean isAtNotch() {
-                        return this.rotorPosition == 12 || this.rotorPosition == 25;
-                    }
-                };
-            case "VII":
-                return new Rotor("VII","NZJHGRCXMYSWBOUFAIVLPEKQDT", rotorPosition, 0, ringSetting) {
-                    @Override
-                    public boolean isAtNotch() {
-                        return this.rotorPosition == 12 || this.rotorPosition == 25;
-                    }
-                };
-            case "VIII":
-                return new Rotor("VIII","FKQHTLXOCBJSPDZRAMEWNIUYGV", rotorPosition, 0, ringSetting) {
-                    @Override
-                    public boolean isAtNotch() {
-                        return this.rotorPosition == 12 || this.rotorPosition == 25;
-                    }
-                };
-            default:
-                return new Rotor("Identity","ABCDEFGHIJKLMNOPQRSTUVWXYZ", rotorPosition, 0, ringSetting);
+        case "I":
+            return new Rotor("I", "EKMFLGDQVZNTOWYHXUSPAIBRCJ", rotorPosition, 16, ringSetting);
+        case "II":
+            return new Rotor("II", "AJDKSIRUXBLHWTMCQGZNPYFVOE", rotorPosition, 4, ringSetting);
+        case "III":
+            return new Rotor("III", "BDFHJLCPRTXVZNYEIWGAKMUSQO", rotorPosition, 21, ringSetting);
+        case "IV":
+            return new Rotor("IV", "ESOVPZJAYQUIRHXLNFTGKDCMWB", rotorPosition, 9, ringSetting);
+        case "V":
+            return new Rotor("V", "VZBRGITYUPSDNHLXAWMJQOFECK", rotorPosition, 25, ringSetting);
+        case "VI":
+            return new Rotor("VI", "JPGVOUMFYQBENHZRDKASXLICTW", rotorPosition, 0, ringSetting) {
+                @Override
+                public boolean isAtNotch() {
+                    return this.rotorPosition == 12 || this.rotorPosition == 25;
+                }
+            };
+        case "VII":
+            return new Rotor("VII", "NZJHGRCXMYSWBOUFAIVLPEKQDT", rotorPosition, 0, ringSetting) {
+                @Override
+                public boolean isAtNotch() {
+                    return this.rotorPosition == 12 || this.rotorPosition == 25;
+                }
+            };
+        case "VIII":
+            return new Rotor("VIII", "FKQHTLXOCBJSPDZRAMEWNIUYGV", rotorPosition, 0, ringSetting) {
+                @Override
+                public boolean isAtNotch() {
+                    return this.rotorPosition == 12 || this.rotorPosition == 25;
+                }
+            };
+        default:
+            return new Rotor("Identity", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", rotorPosition, 0, ringSetting);
         }
     }
 
@@ -102,6 +102,5 @@ public class Rotor {
     public void turnover() {
         this.rotorPosition = (this.rotorPosition + 1) % 26;
     }
-
 
 }

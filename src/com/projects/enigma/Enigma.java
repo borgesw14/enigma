@@ -1,11 +1,10 @@
-package com.mikepound.enigma;
+package com.projects.enigma;
 
-
-import com.mikepound.analysis.EnigmaKey;
+import com.projects.analysis.EnigmaKey;
 
 public class Enigma {
     // 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
-    // A B C D E F G H I J K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z
+    // A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
     public Rotor leftRotor;
     public Rotor middleRotor;
     public Rotor rightRotor;
@@ -14,7 +13,8 @@ public class Enigma {
 
     public Plugboard plugboard;
 
-    public Enigma(String[] rotors, String reflector, int[] rotorPositions, int[] ringSettings, String plugboardConnections) {
+    public Enigma(String[] rotors, String reflector, int[] rotorPositions, int[] ringSettings,
+            String plugboardConnections) {
         this.leftRotor = Rotor.Create(rotors[0], rotorPositions[0], ringSettings[0]);
         this.middleRotor = Rotor.Create(rotors[1], rotorPositions[1], ringSettings[1]);
         this.rightRotor = Rotor.Create(rotors[2], rotorPositions[2], ringSettings[2]);
@@ -67,7 +67,7 @@ public class Enigma {
     }
 
     public char encrypt(char c) {
-        return (char)(this.encrypt(c - 65) + 65);
+        return (char) (this.encrypt(c - 65) + 65);
     }
 
     public char[] encrypt(char[] input) {

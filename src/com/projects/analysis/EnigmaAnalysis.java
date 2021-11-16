@@ -1,32 +1,31 @@
-package com.mikepound.analysis;
-
-import com.mikepound.analysis.fitness.FitnessFunction;
-import com.mikepound.enigma.Enigma;
-import com.mikepound.enigma.Plugboard;
+package com.projects.analysis;
 
 import java.util.*;
 
+import com.projects.analysis.fitness.FitnessFunction;
+import com.projects.enigma.Enigma;
+import com.projects.enigma.Plugboard;
+
 public class EnigmaAnalysis {
     public enum AvailableRotors {
-        THREE,
-        FIVE,
-        EIGHT
+        THREE, FIVE, EIGHT
     }
 
-    public static ScoredEnigmaKey[] findRotorConfiguration(char[] ciphertext, AvailableRotors rotors, String plugboard, int requiredKeys, FitnessFunction f) {
+    public static ScoredEnigmaKey[] findRotorConfiguration(char[] ciphertext, AvailableRotors rotors, String plugboard,
+            int requiredKeys, FitnessFunction f) {
         String[] availableRotorList;
 
         switch (rotors) {
-            case THREE:
-                availableRotorList = new String[] {"I", "II", "III"};
-                break;
-            case FIVE:
-                availableRotorList = new String[] {"I", "II", "III", "IV", "V"};
-                break;
-            case EIGHT:
-            default:
-                availableRotorList = new String[] {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"};
-                break;
+        case THREE:
+            availableRotorList = new String[] { "I", "II", "III" };
+            break;
+        case FIVE:
+            availableRotorList = new String[] { "I", "II", "III", "IV", "V" };
+            break;
+        case EIGHT:
+        default:
+            availableRotorList = new String[] { "I", "II", "III", "IV", "V", "VI", "VII", "VIII" };
+            break;
         }
 
         String[] optimalRotors;
@@ -36,23 +35,27 @@ public class EnigmaAnalysis {
 
         for (String rotor1 : availableRotorList) {
             for (String rotor2 : availableRotorList) {
-                if (rotor1.equals(rotor2)) continue;
+                if (rotor1.equals(rotor2))
+                    continue;
                 for (String rotor3 : availableRotorList) {
-                    if (rotor1.equals(rotor3) || rotor2.equals(rotor3)) continue;
-                    System.out.println(rotor1 + " " + rotor2 + " " + rotor3 );
+                    if (rotor1.equals(rotor3) || rotor2.equals(rotor3))
+                        continue;
+                    System.out.println(rotor1 + " " + rotor2 + " " + rotor3);
 
                     float maxFitness = -1e30f;
                     EnigmaKey bestKey = null;
                     for (int i = 0; i < 26; i++) {
                         for (int j = 0; j < 26; j++) {
                             for (int k = 0; k < 26; k++) {
-                                Enigma e = new Enigma(new String[]{rotor1, rotor2, rotor3}, "B", new int[]{i, j, k}, new int[]{0, 0, 0}, plugboard);
+                                Enigma e = new Enigma(new String[] { rotor1, rotor2, rotor3 }, "B",
+                                        new int[] { i, j, k }, new int[] { 0, 0, 0 }, plugboard);
                                 char[] decryption = e.encrypt(ciphertext);
                                 float fitness = f.score(decryption);
                                 if (fitness > maxFitness) {
                                     maxFitness = fitness;
-                                    optimalRotors = new String[] { e.leftRotor.getName(), e.middleRotor.getName(), e.rightRotor.getName()};
-                                    optimalPositions = new int[] { i, j, k};
+                                    optimalRotors = new String[] { e.leftRotor.getName(), e.middleRotor.getName(),
+                                            e.rightRotor.getName() };
+                                    optimalPositions = new int[] { i, j, k };
                                     bestKey = new EnigmaKey(optimalRotors, optimalPositions, null, plugboard);
                                 }
                             }
@@ -66,10 +69,7 @@ public class EnigmaAnalysis {
 
         // Sort keys by best performing (highest fitness score)
         keySet.sort(Collections.reverseOrder());
-        return keySet.stream()
-                .sorted(Collections.reverseOrder())
-                .limit(requiredKeys)
-                .toArray(ScoredEnigmaKey[]::new);
+        return keySet.stream().sorted(Collections.reverseOrder()).limit(requiredKeys).toArray(ScoredEnigmaKey[]::new);
     }
 
     public static ScoredEnigmaKey findRingSettings(EnigmaKey key, char[] ciphertext, FitnessFunction f) {
@@ -96,24 +96,19 @@ public class EnigmaAnalysis {
     public static int findRingSetting(EnigmaKey key, char[] ciphertext, int rotor, FitnessFunction f) {
         String[] rotors = key.rotors;
         int[] originalIndicators = key.indicators;
-        int[] originalRingSettings = key.rings != null ? key.rings : new int[] {0,0,0} ;
+        int[] originalRingSettings = key.rings != null ? key.rings : new int[] { 0, 0, 0 };
         String plugboard = key.plugboard;
         int optimalRingSetting = 0;
 
-
         float maxFitness = -1e30f;
         for (int i = 0; i < 26; i++) {
-            int[] currentStartingPositions = Arrays.copyOf(originalIndicators,3);
+            int[] currentStartingPositions = Arrays.copyOf(originalIndicators, 3);
             int[] currentRingSettings = Arrays.copyOf(originalRingSettings, 3);
 
             currentStartingPositions[rotor] = Math.floorMod(currentStartingPositions[rotor] + i, 26);
             currentRingSettings[rotor] = i;
 
-            Enigma e = new Enigma(rotors,
-                    "B",
-                    currentStartingPositions,
-                    currentRingSettings,
-                    plugboard);
+            Enigma e = new Enigma(rotors, "B", currentStartingPositions, currentRingSettings, plugboard);
             char[] decryption = e.encrypt(ciphertext);
             float fitness = f.score(decryption);
             if (fitness > maxFitness) {
@@ -132,11 +127,12 @@ public class EnigmaAnalysis {
         String originalPlugs = currentKey.plugboard;
         String optimalPlugSetting = "";
         float maxFitness = -1e30f;
-        for (int i: unpluggedCharacters) {
-            for (int j: unpluggedCharacters) {
-                if (i >= j) continue;
+        for (int i : unpluggedCharacters) {
+            for (int j : unpluggedCharacters) {
+                if (i >= j)
+                    continue;
 
-                String plug = "" + (char)(i + 65) + (char)(j + 65);
+                String plug = "" + (char) (i + 65) + (char) (j + 65);
                 currentKey.plugboard = originalPlugs.isEmpty() ? plug : originalPlugs + " " + plug;
 
                 Enigma e = new Enigma(currentKey);
@@ -155,7 +151,7 @@ public class EnigmaAnalysis {
     public static ScoredEnigmaKey findPlugs(EnigmaKey key, int maxPlugs, char[] ciphertext, FitnessFunction f) {
         EnigmaKey currentKey = new EnigmaKey(key);
         String plugs = "";
-        //String findPlug(EnigmaKey key, char[] ciphertext, FitnessFunction f) {
+        // String findPlug(EnigmaKey key, char[] ciphertext, FitnessFunction f) {
         for (int i = 0; i < maxPlugs; i++) {
             currentKey.plugboard = plugs;
             String nextPlug = findPlug(currentKey, ciphertext, f);

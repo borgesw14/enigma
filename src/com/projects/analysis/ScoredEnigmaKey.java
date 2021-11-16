@@ -1,6 +1,6 @@
-package com.mikepound.analysis;
+package com.projects.analysis;
 
-import com.mikepound.enigma.Enigma;
+import com.projects.enigma.Enigma;
 
 public class ScoredEnigmaKey extends EnigmaKey implements Comparable<ScoredEnigmaKey> {
     float score;
@@ -10,7 +10,9 @@ public class ScoredEnigmaKey extends EnigmaKey implements Comparable<ScoredEnigm
         this.score = score;
     }
 
-    public float getScore() { return this.score; }
+    public float getScore() {
+        return this.score;
+    }
 
     @Override
     public int compareTo(ScoredEnigmaKey o) {

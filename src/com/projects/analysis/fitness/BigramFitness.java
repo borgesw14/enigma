@@ -1,4 +1,4 @@
-package com.mikepound.analysis.fitness;
+package com.projects.analysis.fitness;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -12,21 +12,19 @@ public class BigramFitness extends FitnessFunction {
         return (a << 5) | b;
     }
 
-
     public BigramFitness() {
         // Bigrams
         this.bigrams = new float[826];
-        Arrays.fill(this.bigrams, (float)Math.log10(epsilon));
+        Arrays.fill(this.bigrams, (float) Math.log10(epsilon));
         try (final InputStream is = BigramFitness.class.getResourceAsStream("/data/bigrams");
-             final Reader r = new InputStreamReader(is, StandardCharsets.UTF_8);
-             final BufferedReader br = new BufferedReader(r);
-             final Stream<String> lines = br.lines()) {
-            lines.map(line -> line.split(","))
-                    .forEach(s -> {
-                        String key = s[0];
-                        int i = biIndex(key.charAt(0) - 65, key.charAt(1) - 65);
-                        this.bigrams[i] = Float.parseFloat(s[1]);
-                    });
+                final Reader r = new InputStreamReader(is, StandardCharsets.UTF_8);
+                final BufferedReader br = new BufferedReader(r);
+                final Stream<String> lines = br.lines()) {
+            lines.map(line -> line.split(",")).forEach(s -> {
+                String key = s[0];
+                int i = biIndex(key.charAt(0) - 65, key.charAt(1) - 65);
+                this.bigrams[i] = Float.parseFloat(s[1]);
+            });
         } catch (IOException e) {
             this.bigrams = null;
         }

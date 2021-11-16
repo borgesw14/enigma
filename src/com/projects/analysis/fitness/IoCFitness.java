@@ -1,4 +1,4 @@
-package com.mikepound.analysis.fitness;
+package com.projects.analysis.fitness;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -25,6 +25,6 @@ public class IoCFitness extends FitnessFunction {
             total += (v * (v - 1));
         }
 
-        return total / (n * (n-1));
+        return total / (n * (n - 1));
     }
 }

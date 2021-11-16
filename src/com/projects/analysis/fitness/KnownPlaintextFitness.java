@@ -1,4 +1,4 @@
-package com.mikepound.analysis.fitness;
+package com.projects.analysis.fitness;
 
 public class KnownPlaintextFitness extends FitnessFunction {
     char[] plaintext;

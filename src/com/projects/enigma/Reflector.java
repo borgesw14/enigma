@@ -1,4 +1,4 @@
-package com.mikepound.enigma;
+package com.projects.enigma;
 
 public class Reflector {
     protected int[] forwardWiring;
@@ -9,12 +9,12 @@ public class Reflector {
 
     public static Reflector Create(String name) {
         switch (name) {
-            case "B":
-                return new Reflector("YRUHQSLDPXNGOKMIEBFZCWVJAT");
-            case "C":
-                return new Reflector("FVPJIAOYEDRZXWGCTKUQSBNMHL");
-            default:
-                return new Reflector("ZYXWVUTSRQPONMLKJIHGFEDCBA");
+        case "B":
+            return new Reflector("YRUHQSLDPXNGOKMIEBFZCWVJAT");
+        case "C":
+            return new Reflector("FVPJIAOYEDRZXWGCTKUQSBNMHL");
+        default:
+            return new Reflector("ZYXWVUTSRQPONMLKJIHGFEDCBA");
         }
     }
 

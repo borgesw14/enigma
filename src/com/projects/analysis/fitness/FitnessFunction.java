@@ -1,4 +1,4 @@
-package com.mikepound.analysis.fitness;
+package com.projects.analysis.fitness;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

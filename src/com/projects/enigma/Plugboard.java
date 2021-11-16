@@ -1,4 +1,4 @@
-package com.mikepound.enigma;
+package com.projects.enigma;
 
 import java.util.HashSet;
 import java.util.Set;

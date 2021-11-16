@@ -1,4 +1,4 @@
-package com.mikepound.analysis.fitness;
+package com.projects.analysis.fitness;
 
 public class FrequencyAnalysis {
     private float[] counts;
@@ -10,7 +10,7 @@ public class FrequencyAnalysis {
     }
 
     public void analyse(byte[] text) {
-        for (byte b: text) {
+        for (byte b : text) {
             this.counts[b]++;
         }
         this.total += text.length;
