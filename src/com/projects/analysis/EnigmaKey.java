@@ -8,6 +8,14 @@ public class EnigmaKey {
     public int[] rings;
     public String plugboard;
 
+    /**
+     * Enigma settings 
+     * 
+     * @param rotors
+     * @param indicators
+     * @param rings
+     * @param plugboardConnections
+     */
     public EnigmaKey(String[] rotors, int[] indicators, int[] rings, String plugboardConnections) {
         this.rotors = rotors == null ? new String[] { "I", "II", "III" } : rotors;
         this.indicators = indicators == null ? new int[] { 0, 0, 0 } : indicators;
@@ -15,6 +23,11 @@ public class EnigmaKey {
         this.plugboard = plugboardConnections == null ? "" : plugboardConnections;
     }
 
+    /**
+     * Enigma key settings
+     * 
+     * @param key
+     */
     public EnigmaKey(EnigmaKey key) {
         this.rotors = key.rotors == null ? new String[] { "I", "II", "III" }
                 : new String[] { key.rotors[0], key.rotors[1], key.rotors[2] };
