@@ -13,6 +13,15 @@ public class Enigma {
 
     public Plugboard plugboard;
 
+    /**
+     * Sets rotor positions by creating new rotors and settings
+     * 
+     * @param rotors
+     * @param reflector
+     * @param rotorPositions
+     * @param ringSettings
+     * @param plugboardConnections
+     */
     public Enigma(String[] rotors, String reflector, int[] rotorPositions, int[] ringSettings,
             String plugboardConnections) {
         this.leftRotor = Rotor.Create(rotors[0], rotorPositions[0], ringSettings[0]);
@@ -26,6 +35,9 @@ public class Enigma {
         this(key.rotors, "B", key.indicators, key.rings, key.plugboard);
     }
 
+    /**
+     * Rotor rotations
+     */
     public void rotate() {
         // If middle rotor notch - double-stepping
         if (middleRotor.isAtNotch()) {
@@ -41,6 +53,12 @@ public class Enigma {
         rightRotor.turnover();
     }
 
+    /**
+     * This is the encrypt method and it helps tell the rotors to rotate based on settings.
+     * 
+     * @param c
+     * @return
+     */
     public int encrypt(int c) {
         rotate();
 
@@ -66,10 +84,22 @@ public class Enigma {
         return c7;
     }
 
+    /**
+     * 
+     * 
+     * @param c
+     * @return
+     */
     public char encrypt(char c) {
         return (char) (this.encrypt(c - 65) + 65);
     }
 
+    /**
+     * 
+     * 
+     * @param input
+     * @return
+     */
     public char[] encrypt(char[] input) {
         char[] output = new char[input.length];
         for (int i = 0; i < input.length; i++) {
