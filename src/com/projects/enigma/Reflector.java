@@ -13,6 +13,8 @@ public class Reflector {
             return new Reflector("YRUHQSLDPXNGOKMIEBFZCWVJAT");
         case "C":
             return new Reflector("FVPJIAOYEDRZXWGCTKUQSBNMHL");
+        case "G":
+            return new Reflector("RULQMZJSYGOCETKWDAHNBXPVIF");
         default:
             return new Reflector("ZYXWVUTSRQPONMLKJIHGFEDCBA");
         }

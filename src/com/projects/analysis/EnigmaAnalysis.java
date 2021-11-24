@@ -8,7 +8,7 @@ import com.projects.enigma.Plugboard;
 
 public class EnigmaAnalysis {
     public enum AvailableRotors {
-        THREE, FIVE, EIGHT
+        THREE, FIVE, ELEVEN, THREEG
     }
 
     public static ScoredEnigmaKey[] findRotorConfiguration(char[] ciphertext, AvailableRotors rotors, String plugboard,
@@ -22,9 +22,12 @@ public class EnigmaAnalysis {
         case FIVE:
             availableRotorList = new String[] { "I", "II", "III", "IV", "V" };
             break;
-        case EIGHT:
+        case THREEG:
+            availableRotorList = new String[] {"IG","IIG","IIIG"};
+            break;
+        case ELEVEN:
         default:
-            availableRotorList = new String[] { "I", "II", "III", "IV", "V", "VI", "VII", "VIII" };
+            availableRotorList = new String[] { "I", "II", "III", "IV", "V", "VI", "VII", "VIII","IG","IIG","IIIG" };
             break;
         }
 

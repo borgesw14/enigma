@@ -39,7 +39,7 @@ class EnigmaTest {
     @Test
     void decryptTest() {
         Random rand = new Random();
-        String[] allRotors = new String[] {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"};
+        String[] allRotors = new String[] {"I", "II", "III", "IV", "V", "VI", "VII", "VIII","IG","IIG","IIIG"};
 
         char[] input = new char[1000];
         for (int i = 0; i < 1000; i++) {
