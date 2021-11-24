@@ -8,6 +8,15 @@ import java.util.stream.Stream;
 public class QuadramFitness extends FitnessFunction {
     private float[] quadgrams;
 
+    /**
+     * Quad Index
+     * 
+     * @param a
+     * @param b
+     * @param c
+     * @param d
+     * @return
+     */
     private static int quadIndex(int a, int b, int c, int d) {
         return (a << 15) | (b << 10) | (c << 5) | d;
     }
