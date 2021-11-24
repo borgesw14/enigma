@@ -50,14 +50,6 @@ public class Main {
 		System.out.println("Encrypted String: ");
 	    System.out.println(encipheredString+ "\n");
 
-
-
-		
-
-		//String encipheredString="OZLUDYAKMGMXVFVARPMJIKVWPMBVWMOIDHYPLAYUWGBZFAFAFUQFZQISLEZMYPVBRDDLAGIHIFUJDFADORQOOMIZPYXDCBPWDSSNUSYZTJEWZPWFBWBMIEQXRFASZLOPPZRJKJSPPSTXKPUWYSKNMZZLHJDXJMMMDFODIHUBVCXMNICNYQBNQODFQLOGPZYXRJMTLMRKQAUQJPADHDZPFIKTQBFXAYMVSZPKXIQLOQCVRPKOBZSXIUBAAJBRSNAFDMLLBVSYXISFXQZKQJRIQHOSHVYJXIFUZRMXWJVWHCCYHCXYGRKMKBPWRDBXXRGABQBZRJDVHFPJZUSEBHWAEOGEUQFZEEBDCWNDHIAQDMHKPRVYHQGRDYQIOEOLUBGBSNXWPZCHLDZQBWBEWOCQDBAFGUVHNGCIKXEIZGIZHPJFCTMNNNAUXEVWTWACHOLOLSLTMDRZJZEVKKSSGUUTHVXXODSKTFGRUEIIXVWQYUIPIDBFPGLBYXZTCOQBCAHJYNSGDYLREYBRAKXGKQKWJEKWGAPTHGOMXJDSQKYHMFGOLXBSKVLGNZOAXGVTGXUIVFTGKPJU";
-		//String encipheredString = "rgfhvmdolbpeuoneerunkvqprhttyofrrbnejwpekvqrzjqrcodaisooxbuzvrfhvgulycgekhqoworixhdevofogozerfnyywxlkvqwvofhvfiajvatrbptyspapgieisxoeufhvtugkfqenoeietglczqawpgtecfyvhnerfunxtduzheofbxaioepfhfeucfhvfxaeryaiyeaecgttfapgwzgftxidsetfbqbvgudvhtegofhkvmtyopajwxhfiqtksxibsmmrbefrqqadodsymepfhnejwpekvqrzjqrnvqrvhtenofeitawckqrvsmszzkskodtcspakoxlkfqekvmtccakvrxibsmmrbiikvtijodmjibrrweeuhtepkqrvrdanwzgesmrkcfhvdxatsihvfqtysdenoeaewelrbpiehteiwheihtezgxaeriajosofrepfhfodowetoypkvqyncglugxevdankvqijzmnuhanzuttcodayopbvszbrqwaerroihtacczgkvqrzjqrgofhdozykwyejwzhvfehffflztqhvfbefdxeyopnfhorvofeuhtegofhzhtauoxwrmebvsztysdecwwekvqrzjqrsiftysurusqrjyunjvadwsqtrbptysiofrqnnvqecgafkvqiivmnuqmrkgweghfhvdmtykqlckarezmrrgbefdxensdejoxtkfmdvfeaerfhvwdlzjqlzvaouhaobhtedczatcztzbgacxauibqyrhfhvaaukvafkvqrzjqrkvqlzhflvudoldafyoxfrrazvbunksdmzbslvrradwxivgsakvqrvreachrrfafhvuderheachneugnejwpekvqsvofhvmsrfcyeuozdjwrtvrfhvgmlkozdccmdvrutzbfoyozdtodtjkteehtetodtjkqrvtglcaaskcrtyssrfibwfixdjhmysstierfabwzgjvqlksdadwprfqwsrbpszablvzqaehasnvulvonaerafwwrtvszoigaowhteysmrkwqrdsybvfesvhaukcztysbakvfhrhdaeoxoeueiusfhvfuvvfiikvfhvwdpisoifiecrfsofteachfhvhdamsxeigorfgeeuhtetcmskoxlfkxaereaerfrrjqlvrfonoddkvqmfiztrwzssiflrfmsgsapcszemsdrvoohvrfhvaauehmiehapjhtephdamsxeuczlpoefrfmskvqffcfhzzxsdozygsapcsximspiehtewcdejheaersrrgeydsmdfkeowhtewcatywxljumtysdeuwzsdoxlmwxlruqszbdekidnwcdsrzftyseegsapcsiolzpgzjqlrfmsgsapcsprzspmvofaewyacgwiegolfhtsgizficywfcxccokpfhenvsplvgmnugorrdunxhaocgoaijqdwfamsczerbplzhflvhayjamdvcrwfcp";
-		//String abwehrCipher = "zspuuvgwjtqytjcyaqvjffalfnzxzyhnrhypfgynxeihsjoljltrbhfntkyoduigvquudgwqfklsxwsfjrsquayjvyayquhmfuljalopyjwrkbjoxkqdmkbdcwtlgccsyyuarsaadoxgcmuardftcascrcxyycgtzmxfijhqodcouvvyaluyjqliqgfokeagmutfqwfkspmobdttziccqzittednmqlbwyjbrydvtqkiqjnlllevorykdjcdqmowjzisefcxwxyazhhaxupfsykkcwliypbkffaewxaxtgbpmdwixgaqtqyqrzomsnxgbqskotguhuuqsbsrgchltwhfvunynbzamlulnbkjnidflsxvelqcjqjamfoll";
-		//abwehrCipher = abwehrCipher.toUpperCase();
 		ArrayList<Character> encodedMsg = new ArrayList<Character>();
 
 		for (Character character : encipheredString.toCharArray()) {
@@ -102,8 +94,10 @@ public class Main {
 			for (ArrayList<String> keys : keyList) {
 				for (int i = 0; i < keys.size(); i++) {
 					String decoded = vd.decoder(encodedMsg, keys.get(i));
-					System.out.println("Key: " + keys);
-					System.out.println(decoded);// for now just print it later inplement file write
+					// System.out.println("Key: " + keys);
+					// System.out.println(decoded);
+
+					PrintOut(("Key: "+ keys + "\n"+ decoded), sc);
 				}
 			}
 		}
@@ -117,7 +111,7 @@ public class Main {
 		Files.writeString(path, s);
 	}
 
-	public static void M3(String encipheredString, FitnessFunction ioc, FitnessFunction bigrams, FitnessFunction quadgrams){
+	public static void M3(String encipheredString, FitnessFunction ioc, FitnessFunction bigrams, FitnessFunction quadgrams) throws IOException{
 		char[] ciphertext = encipheredString.toCharArray();
 
 			// Begin by finding the best combination of rotors and start positions (returns
@@ -148,6 +142,7 @@ public class Main {
 			System.out.println(String.format("Best plugboard: %s", optimalKeyWithPlugs.plugboard));
 			System.out.println(String.format("Final decryption: %s\n",
 					new String(new Enigma(optimalKeyWithPlugs).encrypt(ciphertext))));
+			PrintOut(new String(new Enigma(optimalKeyWithPlugs).encrypt(ciphertext)), new Scanner(System.in));
 	}
 
 	
