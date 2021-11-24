@@ -11,6 +11,16 @@ public class EnigmaAnalysis {
         THREE, FIVE, ELEVEN, THREEG
     }
 
+    /**
+     * Finds the best rotor configurations and puts them in an order based on best fitness
+     * 
+     * @param ciphertext
+     * @param rotors
+     * @param plugboard
+     * @param requiredKeys
+     * @param f
+     * @return
+     */
     public static ScoredEnigmaKey[] findRotorConfiguration(char[] ciphertext, AvailableRotors rotors, String plugboard,
             int requiredKeys, FitnessFunction f) {
         String[] availableRotorList;
@@ -75,6 +85,14 @@ public class EnigmaAnalysis {
         return keySet.stream().sorted(Collections.reverseOrder()).limit(requiredKeys).toArray(ScoredEnigmaKey[]::new);
     }
 
+    /**
+     * Calculates the best fitness based on the rotors and ring settings
+     * 
+     * @param key
+     * @param ciphertext
+     * @param f
+     * @return
+     */
     public static ScoredEnigmaKey findRingSettings(EnigmaKey key, char[] ciphertext, FitnessFunction f) {
         EnigmaKey newKey = new EnigmaKey(key);
 
@@ -96,6 +114,15 @@ public class EnigmaAnalysis {
         return new ScoredEnigmaKey(newKey, f.score(decryption));
     }
 
+    /**
+     * Finds and calculates different ring settings
+     * 
+     * @param key
+     * @param ciphertext
+     * @param rotor
+     * @param f
+     * @return
+     */
     public static int findRingSetting(EnigmaKey key, char[] ciphertext, int rotor, FitnessFunction f) {
         String[] rotors = key.rotors;
         int[] originalIndicators = key.indicators;
@@ -122,6 +149,14 @@ public class EnigmaAnalysis {
         return optimalRingSetting;
     }
 
+    /**
+     * Plug board however we don't need this one pretty sure
+     * 
+     * @param key
+     * @param ciphertext
+     * @param f
+     * @return
+     */
     public static String findPlug(EnigmaKey key, char[] ciphertext, FitnessFunction f) {
         Set<Integer> unpluggedCharacters = Plugboard.getUnpluggedCharacters(key.plugboard);
         // Set<Integer> charCount = new HashSet<Integer>();
@@ -151,6 +186,15 @@ public class EnigmaAnalysis {
         return optimalPlugSetting;
     }
 
+    /**
+     * Finds different plug board settings (again might not need)
+     * 
+     * @param key
+     * @param maxPlugs
+     * @param ciphertext
+     * @param f
+     * @return
+     */
     public static ScoredEnigmaKey findPlugs(EnigmaKey key, int maxPlugs, char[] ciphertext, FitnessFunction f) {
         EnigmaKey currentKey = new EnigmaKey(key);
         String plugs = "";
