@@ -7,6 +7,12 @@ public class KnownPlaintextFitness extends FitnessFunction {
         this.plaintext = plaintext;
     }
 
+    /**
+     * 
+     * 
+     * @param words
+     * @param offsets
+     */
     public KnownPlaintextFitness(String[] words, int[] offsets) {
         int length = 0;
         for (int i = 0; i < words.length; i++) {
