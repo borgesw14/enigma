@@ -52,7 +52,7 @@ public class Main {
 
 		ArrayList<Character> encodedMsg = new ArrayList<Character>();
 
-		for (Character character : encipheredString.toCharArray()) {
+		for (Character character : encipheredString.toLowerCase().toCharArray()) {
 			encodedMsg.add(character);
 		}
 
