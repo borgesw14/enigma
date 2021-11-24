@@ -13,6 +13,10 @@ import com.projects.tools.VigenereKeywordLength;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 public class Main {
 
 	// TODO:
@@ -21,7 +25,8 @@ public class Main {
 	 * switch for german or english, german and english engrams need to be updated
 	 */
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException{
+		Scanner sc = new Scanner(System.in);
 
 		VigenereDecoder vd = new VigenereDecoder();
 		VigenereCracker vc = new VigenereCracker();
@@ -37,10 +42,22 @@ public class Main {
 		// For those interested, these were the original settings
 		// II V III / 7 4 19 / 12 2 20 / AF TV KO BL RW
 
-		String encipheredString="OZLUDYAKMGMXVFVARPMJIKVWPMBVWMOIDHYPLAYUWGBZFAFAFUQFZQISLEZMYPVBRDDLAGIHIFUJDFADORQOOMIZPYXDCBPWDSSNUSYZTJEWZPWFBWBMIEQXRFASZLOPPZRJKJSPPSTXKPUWYSKNMZZLHJDXJMMMDFODIHUBVCXMNICNYQBNQODFQLOGPZYXRJMTLMRKQAUQJPADHDZPFIKTQBFXAYMVSZPKXIQLOQCVRPKOBZSXIUBAAJBRSNAFDMLLBVSYXISFXQZKQJRIQHOSHVYJXIFUZRMXWJVWHCCYHCXYGRKMKBPWRDBXXRGABQBZRJDVHFPJZUSEBHWAEOGEUQFZEEBDCWNDHIAQDMHKPRVYHQGRDYQIOEOLUBGBSNXWPZCHLDZQBWBEWOCQDBAFGUVHNGCIKXEIZGIZHPJFCTMNNNAUXEVWTWACHOLOLSLTMDRZJZEVKKSSGUUTHVXXODSKTFGRUEIIXVWQYUIPIDBFPGLBYXZTCOQBCAHJYNSGDYLREYBRAKXGKQKWJEKWGAPTHGOMXJDSQKYHMFGOLXBSKVLGNZOAXGVTGXUIVFTGKPJU";
+		Path filePath = Path.of(args[0]);
+
+		String encipheredString = Files.readString(filePath);
+		encipheredString = encipheredString.toUpperCase();
+
+		System.out.println("Encrypted String: ");
+	    System.out.println(encipheredString+ "\n");
+
+
+
+		
+
+		//String encipheredString="OZLUDYAKMGMXVFVARPMJIKVWPMBVWMOIDHYPLAYUWGBZFAFAFUQFZQISLEZMYPVBRDDLAGIHIFUJDFADORQOOMIZPYXDCBPWDSSNUSYZTJEWZPWFBWBMIEQXRFASZLOPPZRJKJSPPSTXKPUWYSKNMZZLHJDXJMMMDFODIHUBVCXMNICNYQBNQODFQLOGPZYXRJMTLMRKQAUQJPADHDZPFIKTQBFXAYMVSZPKXIQLOQCVRPKOBZSXIUBAAJBRSNAFDMLLBVSYXISFXQZKQJRIQHOSHVYJXIFUZRMXWJVWHCCYHCXYGRKMKBPWRDBXXRGABQBZRJDVHFPJZUSEBHWAEOGEUQFZEEBDCWNDHIAQDMHKPRVYHQGRDYQIOEOLUBGBSNXWPZCHLDZQBWBEWOCQDBAFGUVHNGCIKXEIZGIZHPJFCTMNNNAUXEVWTWACHOLOLSLTMDRZJZEVKKSSGUUTHVXXODSKTFGRUEIIXVWQYUIPIDBFPGLBYXZTCOQBCAHJYNSGDYLREYBRAKXGKQKWJEKWGAPTHGOMXJDSQKYHMFGOLXBSKVLGNZOAXGVTGXUIVFTGKPJU";
 		//String encipheredString = "rgfhvmdolbpeuoneerunkvqprhttyofrrbnejwpekvqrzjqrcodaisooxbuzvrfhvgulycgekhqoworixhdevofogozerfnyywxlkvqwvofhvfiajvatrbptyspapgieisxoeufhvtugkfqenoeietglczqawpgtecfyvhnerfunxtduzheofbxaioepfhfeucfhvfxaeryaiyeaecgttfapgwzgftxidsetfbqbvgudvhtegofhkvmtyopajwxhfiqtksxibsmmrbefrqqadodsymepfhnejwpekvqrzjqrnvqrvhtenofeitawckqrvsmszzkskodtcspakoxlkfqekvmtccakvrxibsmmrbiikvtijodmjibrrweeuhtepkqrvrdanwzgesmrkcfhvdxatsihvfqtysdenoeaewelrbpiehteiwheihtezgxaeriajosofrepfhfodowetoypkvqyncglugxevdankvqijzmnuhanzuttcodayopbvszbrqwaerroihtacczgkvqrzjqrgofhdozykwyejwzhvfehffflztqhvfbefdxeyopnfhorvofeuhtegofhzhtauoxwrmebvsztysdecwwekvqrzjqrsiftysurusqrjyunjvadwsqtrbptysiofrqnnvqecgafkvqiivmnuqmrkgweghfhvdmtykqlckarezmrrgbefdxensdejoxtkfmdvfeaerfhvwdlzjqlzvaouhaobhtedczatcztzbgacxauibqyrhfhvaaukvafkvqrzjqrkvqlzhflvudoldafyoxfrrazvbunksdmzbslvrradwxivgsakvqrvreachrrfafhvuderheachneugnejwpekvqsvofhvmsrfcyeuozdjwrtvrfhvgmlkozdccmdvrutzbfoyozdtodtjkteehtetodtjkqrvtglcaaskcrtyssrfibwfixdjhmysstierfabwzgjvqlksdadwprfqwsrbpszablvzqaehasnvulvonaerafwwrtvszoigaowhteysmrkwqrdsybvfesvhaukcztysbakvfhrhdaeoxoeueiusfhvfuvvfiikvfhvwdpisoifiecrfsofteachfhvhdamsxeigorfgeeuhtetcmskoxlfkxaereaerfrrjqlvrfonoddkvqmfiztrwzssiflrfmsgsapcszemsdrvoohvrfhvaauehmiehapjhtephdamsxeuczlpoefrfmskvqffcfhzzxsdozygsapcsximspiehtewcdejheaersrrgeydsmdfkeowhtewcatywxljumtysdeuwzsdoxlmwxlruqszbdekidnwcdsrzftyseegsapcsiolzpgzjqlrfmsgsapcsprzspmvofaewyacgwiegolfhtsgizficywfcxccokpfhenvsplvgmnugorrdunxhaocgoaijqdwfamsczerbplzhflvhayjamdvcrwfcp";
-		String abwehrCipher = "zspuuvgwjtqytjcyaqvjffalfnzxzyhnrhypfgynxeihsjoljltrbhfntkyoduigvquudgwqfklsxwsfjrsquayjvyayquhmfuljalopyjwrkbjoxkqdmkbdcwtlgccsyyuarsaadoxgcmuardftcascrcxyycgtzmxfijhqodcouvvyaluyjqliqgfokeagmutfqwfkspmobdttziccqzittednmqlbwyjbrydvtqkiqjnlllevorykdjcdqmowjzisefcxwxyazhhaxupfsykkcwliypbkffaewxaxtgbpmdwixgaqtqyqrzomsnxgbqskotguhuuqsbsrgchltwhfvunynbzamlulnbkjnidflsxvelqcjqjamfoll";
-		abwehrCipher = abwehrCipher.toUpperCase();
+		//String abwehrCipher = "zspuuvgwjtqytjcyaqvjffalfnzxzyhnrhypfgynxeihsjoljltrbhfntkyoduigvquudgwqfklsxwsfjrsquayjvyayquhmfuljalopyjwrkbjoxkqdmkbdcwtlgccsyyuarsaadoxgcmuardftcascrcxyycgtzmxfijhqodcouvvyaluyjqliqgfokeagmutfqwfkspmobdttziccqzittednmqlbwyjbrydvtqkiqjnlllevorykdjcdqmowjzisefcxwxyazhhaxupfsykkcwliypbkffaewxaxtgbpmdwixgaqtqyqrzomsnxgbqskotguhuuqsbsrgchltwhfvunynbzamlulnbkjnidflsxvelqcjqjamfoll";
+		//abwehrCipher = abwehrCipher.toUpperCase();
 		ArrayList<Character> encodedMsg = new ArrayList<Character>();
 
 		for (Character character : encipheredString.toCharArray()) {
@@ -62,7 +79,7 @@ public class Main {
 
 			//M3(encipheredString, ioc, bigrams, quadgrams);
 			//System.out.println("now we try to decrypt with the abwehr engima:\n");
-			abwehr(abwehrCipher, ioc, bigrams, quadgrams);			
+			abwehr(encipheredString, ioc, bigrams, quadgrams);			
 
 		} else if (!result.equals(Discriminator.CODE_ENIGMA)) {
 			// Decipher for Vigenere cipher
@@ -85,12 +102,19 @@ public class Main {
 			for (ArrayList<String> keys : keyList) {
 				for (int i = 0; i < keys.size(); i++) {
 					String decoded = vd.decoder(encodedMsg, keys.get(i));
+					System.out.println("Key: " + keys);
 					System.out.println(decoded);// for now just print it later inplement file write
 				}
 			}
 		}
 		final long endTime = System.currentTimeMillis();
 		System.out.println("Total execution time: " + (endTime - startTime));
+	}
+
+	public static void PrintOut(String s, Scanner sc) throws IOException{
+		System.out.println("Enter output path: ");
+		Path path = Path.of(sc.nextLine());
+		Files.writeString(path, s);
 	}
 
 	public static void M3(String encipheredString, FitnessFunction ioc, FitnessFunction bigrams, FitnessFunction quadgrams){
@@ -126,16 +150,8 @@ public class Main {
 					new String(new Enigma(optimalKeyWithPlugs).encrypt(ciphertext))));
 	}
 
-	/* known issues I cannot resolve:
-	*	Since EnigmaAnalysis is accessed statically, the program will spit out two of the same identical decryptions.
-	*	Some how when not accessed statically the program will also do the same decrpytion twice.
-	*
-	*	Attempted just doing a decryption on abwehr encrypted text with both the m3 method and the abwehr method, this 
-	*	just throws an index out of bounds each time. Unable to debug using VSCode because running the program requires you
-	*	to recompile manually and then run the class from the bin through the terminal.
-	*
-	*/
-	public static void abwehr(String encipheredString, FitnessFunction ioc, FitnessFunction bigrams, FitnessFunction quadgrams)
+	
+	public static void abwehr(String encipheredString, FitnessFunction ioc, FitnessFunction bigrams, FitnessFunction quadgrams) throws IOException
 	{
 		char[] ciphertext = encipheredString.toCharArray();
 
@@ -167,5 +183,6 @@ public class Main {
 			System.out.println(String.format("Best plugboard: %s", optimalKeyWithPlugs.plugboard));
 			System.out.println(String.format("Final decryption: %s\n",
 					new String(new Enigma(optimalKeyWithPlugs).encrypt(ciphertext))));
+			PrintOut(new String(new Enigma(optimalKeyWithPlugs).encrypt(ciphertext)), new Scanner(System.in));
 	}
 }
