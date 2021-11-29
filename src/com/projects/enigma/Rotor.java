@@ -72,7 +72,7 @@ public class Rotor {
             };
         case "IIG":
             notches = new int[] {0,1,3,6,7,8,10,11,13,14,16,18,21,22,24};
-            return new Rotor("IIG", "DMTWSILRUYQNKFEJCAZBPGXOHV", rotorPosition, notches, ringSetting){
+            return new Rotor("IIG", "HQZGPJTMOBLNCIFDYAWVEUSRKX", rotorPosition, notches, ringSetting){
                 @Override
                 public boolean isAtNotch(){
                     return this.rotorPosition == 0 || this.rotorPosition == 1 || this.rotorPosition == 3 || this.rotorPosition == 6 || this.rotorPosition == 7 || this.rotorPosition == 8 || this.rotorPosition == 10 || this.rotorPosition == 11 || this.rotorPosition == 13 || this.rotorPosition == 14 || this.rotorPosition == 16 || this.rotorPosition == 18 || this.rotorPosition == 21 || this.rotorPosition == 22 || this.rotorPosition == 24;
@@ -80,7 +80,7 @@ public class Rotor {
             };
         case "IIIG":
             notches = new int[] {2,4,5,8,12,13,15,18,20,21,25};
-            return new Rotor("IIIG", "DMTWSILRUYQNKFEJCAZBPGXOHV", rotorPosition, notches, ringSetting){
+            return new Rotor("IIIG", "UQNTLSZFMREHDPXKIBVYGJCWOA", rotorPosition, notches, ringSetting){
                 @Override
                 public boolean isAtNotch(){
                     return this.rotorPosition == 2 || this.rotorPosition == 4 || this.rotorPosition == 5 || this.rotorPosition == 8 || this.rotorPosition == 12 || this.rotorPosition == 13 || this.rotorPosition == 15 || this.rotorPosition == 18 || this.rotorPosition == 20 || this.rotorPosition == 21 || this.rotorPosition == 25;
