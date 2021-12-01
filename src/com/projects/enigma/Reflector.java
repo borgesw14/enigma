@@ -1,12 +1,24 @@
 package com.projects.enigma;
 
+import javax.swing.text.Position;
+
+import com.projects.Main;
+
 public class Reflector {
     protected int[] forwardWiring;
+    protected int reflectorPosition;
+
 
     public Reflector(String encoding) {
         this.forwardWiring = decodeWiring(encoding);
     }
 
+    public Reflector(String encoding, int position){
+        this.forwardWiring = decodeWiring(encoding);
+        this.reflectorPosition = position;
+    }
+
+    
     public static Reflector Create(String name) {
         switch (name) {
         case "B":
@@ -20,6 +32,11 @@ public class Reflector {
         }
     }
 
+    public static Reflector CreateG(int Position) {
+            return new Reflector("RULQMZJSYGOCETKWDAHNBXPVIF",Position);
+        
+        }
+
     protected static int[] decodeWiring(String encoding) {
         char[] charWiring = encoding.toCharArray();
         int[] wiring = new int[charWiring.length];
@@ -30,7 +47,23 @@ public class Reflector {
     }
 
     public int forward(int c) {
-        return this.forwardWiring[c];
+        if(Main.machineModel.equalsIgnoreCase("Abwehr"))
+            return encipher(c, this.reflectorPosition, 0, this.forwardWiring);
+        else
+            return this.forwardWiring[c];
+    }
+
+    public void turnover() {
+        this.reflectorPosition = (this.reflectorPosition + 1) % 26;
+    }
+
+    protected static int encipher(int k, int pos, int ring, int[] mapping) {
+        int shift = pos - ring;
+        return (mapping[(k + shift + 26) % 26] - shift + 26) % 26;
+    }
+
+    public int getPosition(){
+        return reflectorPosition;
     }
 
 }

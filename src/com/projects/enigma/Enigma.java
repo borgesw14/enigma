@@ -1,5 +1,6 @@
 package com.projects.enigma;
 
+import com.projects.Main;
 import com.projects.analysis.EnigmaKey;
 
 public class Enigma {
@@ -13,6 +14,8 @@ public class Enigma {
 
     public Plugboard plugboard;
 
+    public EnigmaKey tempKey;
+
     /**
      * Sets rotor positions by creating new rotors and settings
      * 
@@ -22,6 +25,7 @@ public class Enigma {
      * @param ringSettings
      * @param plugboardConnections
      */
+
     public Enigma(String[] rotors, String reflector, int[] rotorPositions, int[] ringSettings,
             String plugboardConnections) {
         this.leftRotor = Rotor.Create(rotors[0], rotorPositions[0], ringSettings[0]);
@@ -31,27 +35,53 @@ public class Enigma {
         this.plugboard = new Plugboard(plugboardConnections);
     }
 
-    public Enigma(EnigmaKey key) {
+    public Enigma(String[] rotors, String reflector, int reflectorPosition, int[] rotorPositions, int[] ringSettings, String plugboardConnections)
+    {
+        this.leftRotor = Rotor.Create(rotors[0], rotorPositions[0], ringSettings[0]);
+        this.middleRotor = Rotor.Create(rotors[1], rotorPositions[1], ringSettings[1]);
+        this.rightRotor = Rotor.Create(rotors[2], rotorPositions[2], ringSettings[2]);
+        this.reflector = Reflector.CreateG(reflectorPosition);
+        this.plugboard = new Plugboard(plugboardConnections);
+    }
+
+    public Enigma(EnigmaKey key)
+    {
         this(key.rotors, "B", key.indicators, key.rings, key.plugboard);
-    }
 
-    /**
-     * Rotor rotations
-     */
-    public void rotate() {
-        // If middle rotor notch - double-stepping
-        if (middleRotor.isAtNotch()) {
-            middleRotor.turnover();
-            leftRotor.turnover();
-        }
-        // If left-rotor notch
-        else if (rightRotor.isAtNotch()) {
-            middleRotor.turnover();
-        }
-
-        // Increment right-most rotor
-        rightRotor.turnover();
     }
+    
+    
+
+
+    public void rotate(){
+        if(Main.machineModel.equalsIgnoreCase("M3")){
+            if(middleRotor.isAtNotch()){
+                middleRotor.turnover();
+                leftRotor.turnover();
+            }
+            else if(rightRotor.isAtNotch())
+            {
+                middleRotor.turnover();
+            }
+
+            rightRotor.turnover();
+        }
+        else if(Main.machineModel.equalsIgnoreCase("Abwehr")){
+            if(middleRotor.isAtNotch()){
+                leftRotor.turnover();
+            }
+            else if(rightRotor.isAtNotch())
+            {
+                middleRotor.turnover();
+            }
+            else if(leftRotor.isAtNotch()){
+                reflector.turnover();
+            }
+
+            rightRotor.turnover();
+        }
+    }
+    
 
     /**
      * This is the encrypt method and it helps tell the rotors to rotate based on settings.

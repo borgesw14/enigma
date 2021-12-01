@@ -25,6 +25,7 @@ public class Main {
 	 * switch for german or english, german and english engrams need to be updated
 	 */
 
+	 public static String machineModel = "M3";
 	public static void main(String[] args) throws IOException{
 		Scanner sc = new Scanner(System.in);
 
@@ -38,7 +39,6 @@ public class Main {
 		FitnessFunction quadgrams = new QuadramFitness();
 
 		final long startTime = System.currentTimeMillis();
-
 		// For those interested, these were the original settings
 		// II V III / 7 4 19 / 12 2 20 / AF TV KO BL RW
 
@@ -114,6 +114,7 @@ public class Main {
 	}
 
 	public static void M3(String encipheredString, FitnessFunction ioc, FitnessFunction bigrams, FitnessFunction quadgrams) throws IOException{
+		machineModel = "M3";
 		char[] ciphertext = encipheredString.toCharArray();
 
 			// Begin by finding the best combination of rotors and start positions (returns
@@ -150,6 +151,9 @@ public class Main {
 	
 	public static void abwehr(String encipheredString, FitnessFunction ioc, FitnessFunction bigrams, FitnessFunction quadgrams) throws IOException
 	{
+
+		machineModel = "Abwehr";
+
 		char[] ciphertext = encipheredString.toCharArray();
 
 			// Begin by finding the best combination of rotors and start positions (returns
@@ -159,11 +163,12 @@ public class Main {
 
 			System.out.println("\nTop 10 rotor configurations:");
 			for (ScoredEnigmaKey key : rotorConfigurations) {
-				System.out.println(String.format("%s %s %s / %d %d %d / %f", key.rotors[0], key.rotors[1],
+				System.out.println(String.format("Reflector: G %s / %s %s %s / %d %d %d / %f", key.reflectorPos, key.rotors[0], key.rotors[1],
 						key.rotors[2], key.indicators[0], key.indicators[1], key.indicators[2], key.getScore()));
 			}
 			System.out.println(String.format("Current decryption: %s\n",
 					new String(new Enigma(rotorConfigurations[0]).encrypt(ciphertext))));
+
 
 			// Next find the best ring settings for the best configuration (index 0)
 			ScoredEnigmaKey rotorAndRingConfiguration = EnigmaAnalysis.findRingSettings(rotorConfigurations[0],
@@ -174,8 +179,16 @@ public class Main {
 			System.out.println(String.format("Current decryption: %s\n",
 					new String(new Enigma(rotorAndRingConfiguration).encrypt(ciphertext))));
 
+					//find best reflector position for best rotor config
+
+			ScoredEnigmaKey reflectorPosition = EnigmaAnalysis.findReflectorSettings(rotorAndRingConfiguration,ciphertext,bigrams);
+
+			System.out.println(String.format("best reflector position: %d", reflectorPosition.reflectorPos));
+			System.out.println(String.format("Current decryption: %s\n",
+					new String(new Enigma(reflectorPosition).encrypt(ciphertext))));
+
 			// Finally, perform hill climbing to find plugs one at a time
-			ScoredEnigmaKey optimalKeyWithPlugs = EnigmaAnalysis.findPlugs(rotorAndRingConfiguration, 5, ciphertext,
+			ScoredEnigmaKey optimalKeyWithPlugs = EnigmaAnalysis.findPlugs(rotorAndRingConfiguration, 0, ciphertext,
 					quadgrams);
 			System.out.println(String.format("Best plugboard: %s", optimalKeyWithPlugs.plugboard));
 			System.out.println(String.format("Final decryption: %s\n",
