@@ -36,7 +36,7 @@ public class Main {
 
 		FitnessFunction ioc = new IoCFitness();
 		FitnessFunction bigrams = new BigramFitness(FitnessFunction.GER);
-		FitnessFunction quadgrams = new QuadramFitness();
+		FitnessFunction quadgrams = new QuadramFitness(FitnessFunction.GER);
 
 		final long startTime = System.currentTimeMillis();
 		// For those interested, these were the original settings

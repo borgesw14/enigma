@@ -21,22 +21,50 @@ public class QuadramFitness extends FitnessFunction {
         return (a << 15) | (b << 10) | (c << 5) | d;
     }
 
-    public QuadramFitness() {
+    public QuadramFitness(String codeString) {
         // Quadgrams
         this.quadgrams = new float[845626];
         Arrays.fill(this.quadgrams, (float) Math.log10(epsilon));
-        try (final InputStream is = QuadramFitness.class.getResourceAsStream("/data/quadgrams");
+
+        if (codeString.equals(FitnessFunction.ENG)) {
+            try (final InputStream is = QuadramFitness.class.getResourceAsStream("/data/english/quadgrams");
                 final Reader r = new InputStreamReader(is, StandardCharsets.UTF_8);
                 final BufferedReader br = new BufferedReader(r);
                 final Stream<String> lines = br.lines()) {
             lines.map(line -> line.split(",")).forEach(s -> {
                 String key = s[0];
                 int i = quadIndex(key.charAt(0) - 65, key.charAt(1) - 65, key.charAt(2) - 65, key.charAt(3) - 65);
+                
+                
                 this.quadgrams[i] = Float.parseFloat(s[1]);
             });
         } catch (IOException e) {
             this.quadgrams = null;
         }
+        } else {
+            try (final InputStream is = QuadramFitness.class.getResourceAsStream("/data/german/g_quadgram");
+                final Reader r = new InputStreamReader(is, StandardCharsets.UTF_8);
+                final BufferedReader br = new BufferedReader(r);
+                final Stream<String> lines = br.lines()) {
+            lines.map(line -> line.split(",")).forEach(s -> {
+                String key = s[0];
+                int i =0;
+                if(key.length() == 4){
+                    i = quadIndex(key.charAt(0) - 65, key.charAt(1) - 65, key.charAt(2) - 65, key.charAt(3) - 65);
+                } else if(key.length() == 3){
+                    i = quadIndex(key.charAt(0) - 65, key.charAt(1) - 65, key.charAt(2) - 65, 'h' - 65);
+                } else{
+                    i = quadIndex(key.charAt(0) - 65, key.charAt(1) - 65, 'h' - 65, 'h' - 65);
+                }
+                
+                this.quadgrams[i] = Float.parseFloat(s[1]);
+            });
+        } catch (IOException e) {
+            this.quadgrams = null;
+        }
+        }
+
+        
     }
 
     @Override

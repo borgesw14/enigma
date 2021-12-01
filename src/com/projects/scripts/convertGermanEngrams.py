@@ -27,7 +27,7 @@ def main(argv):
     newKeys = []
     newValues = []
 
-    with open(working_dir + '/data/german/n-gram counts/' + inputfile, 'r') as f:
+    with open(working_dir + '/resources/data/german/n-gram counts/' + inputfile, 'r') as f:
         data = f.readlines()
         data.reverse()
         keys = []
@@ -55,7 +55,7 @@ def main(argv):
         
         res = dict(zip(newKeys, newValues))
 
-    with open(working_dir + '/data/german/' + outputfile, 'w') as w:
+    with open(working_dir + '/resources/data/german/' + outputfile, 'w') as w:
         sort = sorted(res.items(), key=lambda x: x[1], reverse=False)
 
         for i in sort:

@@ -18,7 +18,7 @@ public class BigramFitness extends FitnessFunction {
         this.bigrams = new float[826];
         Arrays.fill(this.bigrams, (float) Math.log10(epsilon)); 
         if (codeString.equals(FitnessFunction.GER)) {
-            try (final InputStream is = BigramFitness.class.getResourceAsStream("/data/data/german/g_bigram");
+            try (final InputStream is = BigramFitness.class.getResourceAsStream("/data/german/g_bigram");
                 final Reader r = new InputStreamReader(is, StandardCharsets.UTF_8);
                 final BufferedReader br = new BufferedReader(r);
                 final Stream<String> lines = br.lines()) {
@@ -31,7 +31,7 @@ public class BigramFitness extends FitnessFunction {
               this.bigrams = null;
             }
         } else {
-            try (final InputStream is = BigramFitness.class.getResourceAsStream("/data/bigrams");
+            try (final InputStream is = BigramFitness.class.getResourceAsStream("/data/english/bigrams");
                 final Reader r = new InputStreamReader(is, StandardCharsets.UTF_8);
                 final BufferedReader br = new BufferedReader(r);
                 final Stream<String> lines = br.lines()) {

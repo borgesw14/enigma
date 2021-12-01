@@ -2,8 +2,8 @@ import math
 import os, re, sys, getopt
 
 def main(argv):
-    inputfile = '/trigram.txt'
-    outputfile = '/trigram'
+    inputfile = '/g_trigram'
+    outputfile = '/g_trigram'
     try:
         opts, args = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
     except getopt.GetoptError:
