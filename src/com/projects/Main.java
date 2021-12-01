@@ -21,8 +21,7 @@ public class Main {
 
 	// TODO:
 	/*
-	 * We need to add the email notif,
-	 * switch for german or english, german and english engrams need to be updated
+	 * switch for german or english,
 	 */
 
 	 public static String machineModel = "M3";
@@ -35,8 +34,20 @@ public class Main {
 		Discriminator discriminator = new Discriminator();
 
 		FitnessFunction ioc = new IoCFitness();
-		FitnessFunction bigrams = new BigramFitness(FitnessFunction.GER);
-		FitnessFunction quadgrams = new QuadramFitness(FitnessFunction.GER);
+
+		System.out.println("Which language to use for decryption?\n\t1:English\n\t2:German\nEnter a number (1 or 2)");
+		
+		int input = sc.nextInt();
+		String language;
+
+		if (input == 1) {
+			language = FitnessFunction.ENG;
+		} else {
+			language = FitnessFunction.GER;
+		}
+
+		FitnessFunction bigrams = new BigramFitness(language);
+		FitnessFunction quadgrams = new QuadramFitness(language);
 
 		final long startTime = System.currentTimeMillis();
 		// For those interested, these were the original settings
