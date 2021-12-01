@@ -34,7 +34,7 @@ public class Main {
 		Discriminator discriminator = new Discriminator();
 
 		FitnessFunction ioc = new IoCFitness();
-		FitnessFunction bigrams = new BigramFitness();
+		FitnessFunction bigrams = new BigramFitness(FitnessFunction.GER);
 		FitnessFunction quadgrams = new QuadramFitness();
 
 		final long startTime = System.currentTimeMillis();
@@ -45,7 +45,7 @@ public class Main {
 		Path filePath = Path.of(args[0]);
 
 		String encipheredString = Files.readString(filePath);
-		encipheredString = encipheredString.toUpperCase();
+		encipheredString = encipheredString.toUpperCase().replaceAll("\\s", "");
 
 		System.out.println("Encrypted String: ");
 	    System.out.println(encipheredString+ "\n");
@@ -69,10 +69,11 @@ public class Main {
 
 		if (result.equals(Discriminator.CODE_ENIGMA)) {
 
-			//M3(encipheredString, ioc, bigrams, quadgrams);
+			M3(encipheredString, ioc, bigrams, quadgrams);
 			//System.out.println("now we try to decrypt with the abwehr engima:\n");
-			abwehr(encipheredString, ioc, bigrams, quadgrams);			
-
+			//abwehr(encipheredString, ioc, bigrams, quadgrams);			
+			final long endTime = System.currentTimeMillis();
+			System.out.println("Total execution time: " + (endTime - startTime));
 		} else if (!result.equals(Discriminator.CODE_ENIGMA)) {
 			// Decipher for Vigenere cipher
 
@@ -90,7 +91,8 @@ public class Main {
 					}
 				}
 			}
-
+			final long endTime = System.currentTimeMillis();
+			System.out.println("Total execution time: " + (endTime - startTime));
 			for (ArrayList<String> keys : keyList) {
 				for (int i = 0; i < keys.size(); i++) {
 					String decoded = vd.decoder(encodedMsg, keys.get(i));
@@ -101,8 +103,8 @@ public class Main {
 				}
 			}
 		}
-		final long endTime = System.currentTimeMillis();
-		System.out.println("Total execution time: " + (endTime - startTime));
+		
+		
 	}
 
 	public static void PrintOut(String s, Scanner sc) throws IOException{

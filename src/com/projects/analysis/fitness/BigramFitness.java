@@ -8,15 +8,30 @@ import java.util.stream.Stream;
 public class BigramFitness extends FitnessFunction {
     private float[] bigrams;
 
+
     private static int biIndex(int a, int b) {
         return (a << 5) | b;
     }
 
-    public BigramFitness() {
+    public BigramFitness(String codeString) {
         // Bigrams
         this.bigrams = new float[826];
-        Arrays.fill(this.bigrams, (float) Math.log10(epsilon));
-        try (final InputStream is = BigramFitness.class.getResourceAsStream("/data/bigrams");
+        Arrays.fill(this.bigrams, (float) Math.log10(epsilon)); 
+        if (codeString.equals(FitnessFunction.GER)) {
+            try (final InputStream is = BigramFitness.class.getResourceAsStream("/data/data/german/g_bigram");
+                final Reader r = new InputStreamReader(is, StandardCharsets.UTF_8);
+                final BufferedReader br = new BufferedReader(r);
+                final Stream<String> lines = br.lines()) {
+                    lines.map(line -> line.split(",")).forEach(s -> {
+                    String key = s[0];
+                    int i = biIndex(key.charAt(0) - 65, key.charAt(1) - 65);
+                    this.bigrams[i] = Float.parseFloat(s[1]);
+                    });
+            } catch (IOException e) {
+              this.bigrams = null;
+            }
+        } else {
+            try (final InputStream is = BigramFitness.class.getResourceAsStream("/data/bigrams");
                 final Reader r = new InputStreamReader(is, StandardCharsets.UTF_8);
                 final BufferedReader br = new BufferedReader(r);
                 final Stream<String> lines = br.lines()) {
@@ -25,9 +40,13 @@ public class BigramFitness extends FitnessFunction {
                 int i = biIndex(key.charAt(0) - 65, key.charAt(1) - 65);
                 this.bigrams[i] = Float.parseFloat(s[1]);
             });
-        } catch (IOException e) {
-            this.bigrams = null;
+            } catch (IOException e) {
+              this.bigrams = null;
+            }
         }
+
+        
+        
     }
 
     @Override

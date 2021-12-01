@@ -7,6 +7,8 @@ package com.projects.analysis.fitness;
 
 public abstract class FitnessFunction {
     protected final float epsilon = 3e-10f;
+    public static final String ENG = "english";
+    public static final String GER = "german";
 
     public float score(char[] text) {
         return 0f;
