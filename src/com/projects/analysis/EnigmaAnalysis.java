@@ -237,7 +237,14 @@ public class EnigmaAnalysis {
         }
     }
 
-    //this method definetly needs work for the correct setting to be found.
+    /**
+     * this method definetly needs work for the correct setting to be found.
+     * 
+     * @param key
+     * @param ciphertext
+     * @param f
+     * @return
+     */
     public static ScoredEnigmaKey findReflectorSettings(EnigmaKey key, char[] ciphertext, FitnessFunction f) {
         
                 EnigmaKey newKey = new EnigmaKey(key);
@@ -251,7 +258,14 @@ public class EnigmaAnalysis {
                 return new ScoredEnigmaKey(newKey, f.score(decryption));
     }
     
-    //cycles through different reflector positions and returns a scored enigma key based on fitness function.
+    /**
+     * cycles through different reflector positions and returns a scored enigma key based on fitness function.
+     * 
+     * @param key
+     * @param ciphertext
+     * @param f
+     * @return
+     */
     public static int findReflectorSetting(EnigmaKey key, char[] ciphertext, FitnessFunction f)
     {
         String[] rotors = key.rotors;
