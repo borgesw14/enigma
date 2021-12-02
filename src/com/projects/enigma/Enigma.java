@@ -128,7 +128,7 @@ public class Enigma {
     }
 
     /**
-     * 
+     * Encryption
      * 
      * @param c
      * @return
@@ -138,7 +138,7 @@ public class Enigma {
     }
 
     /**
-     * 
+     * Encryption 
      * 
      * @param input
      * @return
