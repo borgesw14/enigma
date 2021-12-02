@@ -35,6 +35,15 @@ public class Enigma {
         this.plugboard = new Plugboard(plugboardConnections);
     }
 
+    /**
+     * 
+     * @param rotors
+     * @param reflector
+     * @param reflectorPosition
+     * @param rotorPositions
+     * @param ringSettings
+     * @param plugboardConnections
+     */
     public Enigma(String[] rotors, String reflector, int reflectorPosition, int[] rotorPositions, int[] ringSettings, String plugboardConnections)
     {
         this.leftRotor = Rotor.Create(rotors[0], rotorPositions[0], ringSettings[0]);
