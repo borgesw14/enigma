@@ -124,6 +124,7 @@ public class Main {
 		Files.writeString(path, s);
 	}
 
+	//finds best configuration of rotors and ring settings for the M3 machine based on a given encoded message.
 	public static void M3(String encipheredString, FitnessFunction ioc, FitnessFunction bigrams, FitnessFunction quadgrams) throws IOException{
 		machineModel = "M3";
 		char[] ciphertext = encipheredString.toCharArray();
@@ -159,7 +160,7 @@ public class Main {
 			PrintOut(new String(new Enigma(optimalKeyWithPlugs).encrypt(ciphertext)), new Scanner(System.in));
 	}
 
-	
+	//finds best configuration of rotors and ring settings for the Abwehr machine based on a given encoded message.
 	public static void abwehr(String encipheredString, FitnessFunction ioc, FitnessFunction bigrams, FitnessFunction quadgrams) throws IOException
 	{
 
@@ -191,14 +192,15 @@ public class Main {
 					new String(new Enigma(rotorAndRingConfiguration).encrypt(ciphertext))));
 
 					//find best reflector position for best rotor config
-
+			
+			//non-functional reflector position finder based on Scored enigma key
 			ScoredEnigmaKey reflectorPosition = EnigmaAnalysis.findReflectorSettings(rotorAndRingConfiguration,ciphertext,bigrams);
 
 			System.out.println(String.format("best reflector position: %d", reflectorPosition.reflectorPos));
 			System.out.println(String.format("Current decryption: %s\n",
 					new String(new Enigma(reflectorPosition).encrypt(ciphertext))));
-
-			// Finally, perform hill climbing to find plugs one at a time
+			
+			// Finally, perform hill climbing to find plugs one at a time, since hillclimb variable is set to 0 for plugs this does not modify the decryption.
 			ScoredEnigmaKey optimalKeyWithPlugs = EnigmaAnalysis.findPlugs(rotorAndRingConfiguration, 0, ciphertext,
 					quadgrams);
 			System.out.println(String.format("Best plugboard: %s", optimalKeyWithPlugs.plugboard));

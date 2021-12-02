@@ -54,6 +54,7 @@ public class Enigma {
 
 
     public void rotate(){
+        //turns rotors over when we reach a notch, M3 contains a double-step
         if(Main.machineModel.equalsIgnoreCase("M3")){
             if(middleRotor.isAtNotch()){
                 middleRotor.turnover();
@@ -66,6 +67,7 @@ public class Enigma {
 
             rightRotor.turnover();
         }
+        //turns rotors over when we reach a notch, Abwehr does not contain a double-step but reflector steps when the left most rotor reaches a notch
         else if(Main.machineModel.equalsIgnoreCase("Abwehr")){
             if(middleRotor.isAtNotch()){
                 leftRotor.turnover();
