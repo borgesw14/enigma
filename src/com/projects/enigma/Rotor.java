@@ -10,6 +10,15 @@ public class Rotor {
     protected int ringSetting;
     protected int[] notchPositions;
 
+    /**
+     * rotor without arrays
+     * 
+     * @param name
+     * @param encoding
+     * @param rotorPosition
+     * @param notchPosition
+     * @param ringSetting
+     */
     public Rotor(String name, String encoding, int rotorPosition, int notchPosition, int ringSetting) {
         this.name = name;
         this.forwardWiring = decodeWiring(encoding);
@@ -19,6 +28,15 @@ public class Rotor {
         this.ringSetting = ringSetting;
     }
 
+    /**
+     * creates rotor with arrays to input settings for another method
+     * 
+     * @param name
+     * @param encoding
+     * @param rotorPosition
+     * @param notchPositions
+     * @param ringSetting
+     */
     public Rotor(String name, String encoding, int rotorPosition, int[] notchPositions, int ringSetting) {
         this.name = name;
         this.forwardWiring = decodeWiring(encoding);
@@ -28,6 +46,14 @@ public class Rotor {
         this.ringSetting = ringSetting;
     }
 
+    /**
+     * creates different rotors with the settings
+     * 
+     * @param name
+     * @param rotorPosition
+     * @param ringSetting
+     * @return
+     */
     public static Rotor Create(String name, int rotorPosition, int ringSetting) {
         int[] notches;
         switch (name) {
@@ -99,6 +125,12 @@ public class Rotor {
         return rotorPosition;
     }
 
+    /**
+     * 
+     * 
+     * @param encoding
+     * @return
+     */
     protected static int[] decodeWiring(String encoding) {
         char[] charWiring = encoding.toCharArray();
         int[] wiring = new int[charWiring.length];
@@ -108,6 +140,12 @@ public class Rotor {
         return wiring;
     }
 
+    /**
+     * 
+     * 
+     * @param wiring
+     * @return
+     */
     protected static int[] inverseWiring(int[] wiring) {
         int[] inverse = new int[wiring.length];
         for (int i = 0; i < wiring.length; i++) {
@@ -117,23 +155,52 @@ public class Rotor {
         return inverse;
     }
 
+    /**
+     * 
+     * 
+     * @param k
+     * @param pos
+     * @param ring
+     * @param mapping
+     * @return
+     */
     protected static int encipher(int k, int pos, int ring, int[] mapping) {
         int shift = pos - ring;
         return (mapping[(k + shift + 26) % 26] - shift + 26) % 26;
     }
 
+    /**
+     * 
+     * 
+     * @param c
+     * @return
+     */
     public int forward(int c) {
         return encipher(c, this.rotorPosition, this.ringSetting, this.forwardWiring);
     }
 
+    /**
+     * 
+     * 
+     * @param c
+     * @return
+     */
     public int backward(int c) {
         return encipher(c, this.rotorPosition, this.ringSetting, this.backwardWiring);
     }
 
+    /**
+     * 
+     * 
+     * @return
+     */
     public boolean isAtNotch() {
         return this.notchPosition == this.rotorPosition;
     }
 
+    /**
+     * 
+     */
     public void turnover() {
         this.rotorPosition = (this.rotorPosition + 1) % 26;
     }
