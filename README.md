@@ -1,3 +1,4 @@
+Code Base Written by Michael Pound
 # Java Enigma
 
 This is a Java implementation of an Enigma machine, along with code that attempts to break the encryption. This code is associated with the Computerphile video on [cracking enigma](https://www.youtube.com/watch?v=RzWB5jL5RX0).
