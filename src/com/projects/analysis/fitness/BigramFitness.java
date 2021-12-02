@@ -13,6 +13,11 @@ public class BigramFitness extends FitnessFunction {
         return (a << 5) | b;
     }
 
+    /**
+     * Calculates Bigram fitness
+     * 
+     * @param codeString
+     */
     public BigramFitness(String codeString) {
         // Bigrams
         this.bigrams = new float[826];
