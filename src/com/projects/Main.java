@@ -124,7 +124,15 @@ public class Main {
 		Files.writeString(path, s);
 	}
 
-	//finds best configuration of rotors and ring settings for the M3 machine based on a given encoded message.
+	/**
+	 * finds best configuration of rotors and ring settings for the M3 machine based on a given encoded message.
+	 * 
+	 * @param encipheredString
+	 * @param ioc
+	 * @param bigrams
+	 * @param quadgrams
+	 * @throws IOException
+	 */
 	public static void M3(String encipheredString, FitnessFunction ioc, FitnessFunction bigrams, FitnessFunction quadgrams) throws IOException{
 		machineModel = "M3";
 		char[] ciphertext = encipheredString.toCharArray();
@@ -160,7 +168,15 @@ public class Main {
 			PrintOut(new String(new Enigma(optimalKeyWithPlugs).encrypt(ciphertext)), new Scanner(System.in));
 	}
 
-	//finds best configuration of rotors and ring settings for the Abwehr machine based on a given encoded message.
+	/**
+	 * finds best configuration of rotors and ring settings for the Abwehr machine based on a given encoded message.
+	 * 
+	 * @param encipheredString
+	 * @param ioc
+	 * @param bigrams
+	 * @param quadgrams
+	 * @throws IOException
+	 */
 	public static void abwehr(String encipheredString, FitnessFunction ioc, FitnessFunction bigrams, FitnessFunction quadgrams) throws IOException
 	{
 
