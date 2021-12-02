@@ -30,7 +30,12 @@ public class Reflector {
         }
     }
 
-    //creates an abwehr enigma reflector sorting its initial position
+    /**
+     * creates an abwehr enigma reflector sorting its initial position
+     * 
+     * @param Position
+     * @return
+     */
     public static Reflector CreateG(int Position) {
             return new Reflector("RULQMZJSYGOCETKWDAHNBXPVIF", Position);
         
@@ -55,13 +60,19 @@ public class Reflector {
             return this.forwardWiring[c];
     }
 
-    //advances reflector position by 1
+    /**
+     * advances reflector position by 1
+     */
     public void turnover() {
         //shiftEncoding(this.forwardWiring);
             this.reflectorPosition = (this.reflectorPosition + 1) % 26;
     }
 
-    //returns character 
+    /**
+     * returns character 
+     * 
+     * @return
+     */
     public int getPosition(){
         return this.reflectorPosition;
     }
@@ -71,7 +82,9 @@ public class Reflector {
         return (mapping[(k + shift + 26) % 26] - shift + 26) % 26;
     }
 
-    //array shifter in case it comes in handy in the future for stepping
+    /**
+     * array shifter in case it comes in handy in the future for stepping
+     */
     /*
     protected void shiftEncoding(int[] forwardWiring)
     {
