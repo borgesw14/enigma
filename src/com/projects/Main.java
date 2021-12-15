@@ -37,7 +37,7 @@ public class Main {
 
 		System.out.println("Which language to use for decryption?\n\t1:English\n\t2:German\nEnter a number (1 or 2)");
 		
-		int input = sc.nextInt();
+		int input = new Scanner(System.in).nextInt();
 		String language;
 
 		if (input == 1) {
@@ -127,6 +127,7 @@ public class Main {
 	public static void M3(String encipheredString, FitnessFunction ioc, FitnessFunction bigrams, FitnessFunction quadgrams) throws IOException{
 		machineModel = "M3";
 		char[] ciphertext = encipheredString.toCharArray();
+		String printOut = "";
 
 			// Begin by finding the best combination of rotors and start positions (returns
 			// top n)
@@ -134,11 +135,14 @@ public class Main {
 					EnigmaAnalysis.AvailableRotors.FIVE, "", 10, ioc);
 
 			System.out.println("\nTop 10 rotor configurations:");
+			printOut += "\nTop 10 rotor configurations:\n\n";
 			for (ScoredEnigmaKey key : rotorConfigurations) {
 				System.out.println(String.format("%s %s %s / %d %d %d / %f", key.rotors[0], key.rotors[1],
 						key.rotors[2], key.indicators[0], key.indicators[1], key.indicators[2], key.getScore()));
+				printOut += String.format("%s %s %s / %d %d %d / %f", key.rotors[0], key.rotors[1],
+				key.rotors[2], key.indicators[0], key.indicators[1], key.indicators[2], key.getScore()) + "\n\n";
 			}
-			System.out.println(String.format("Current decryption: %s\n",
+			System.out.println(String.format("Current decryption: %s\n\n",
 					new String(new Enigma(rotorConfigurations[0]).encrypt(ciphertext))));
 
 			// Next find the best ring settings for the best configuration (index 0)
@@ -147,16 +151,19 @@ public class Main {
 
 			System.out.println(String.format("Best ring settings: %d %d %d", rotorAndRingConfiguration.rings[0],
 					rotorAndRingConfiguration.rings[1], rotorAndRingConfiguration.rings[2]));
-			System.out.println(String.format("Current decryption: %s\n",
+			printOut += String.format("Best ring settings: %d %d %d", rotorAndRingConfiguration.rings[0],
+			rotorAndRingConfiguration.rings[1], rotorAndRingConfiguration.rings[2]) + "\n";
+			System.out.println(String.format("Current decryption: %s\n\n",
 					new String(new Enigma(rotorAndRingConfiguration).encrypt(ciphertext))));
 
 			// Finally, perform hill climbing to find plugs one at a time
 			ScoredEnigmaKey optimalKeyWithPlugs = EnigmaAnalysis.findPlugs(rotorAndRingConfiguration, 5, ciphertext,
 					quadgrams);
 			System.out.println(String.format("Best plugboard: %s", optimalKeyWithPlugs.plugboard));
-			System.out.println(String.format("Final decryption: %s\n",
+			printOut += String.format("Best plugboard: %s", optimalKeyWithPlugs.plugboard) + "\n";
+			System.out.println(String.format("Final decryption: %s\n\n",
 					new String(new Enigma(optimalKeyWithPlugs).encrypt(ciphertext))));
-			PrintOut(new String(new Enigma(optimalKeyWithPlugs).encrypt(ciphertext)), new Scanner(System.in));
+			PrintOut(printOut + "\n\n" + new String(new Enigma(optimalKeyWithPlugs).encrypt(ciphertext)), new Scanner(System.in));
 	}
 
 	
