@@ -35,6 +35,16 @@ public class Enigma {
         this.plugboard = new Plugboard(plugboardConnections);
     }
 
+    /**
+     * creates the settings and sets the positions
+     * 
+     * @param rotors
+     * @param reflector
+     * @param reflectorPosition
+     * @param rotorPositions
+     * @param ringSettings
+     * @param plugboardConnections
+     */
     public Enigma(String[] rotors, String reflector, int reflectorPosition, int[] rotorPositions, int[] ringSettings, String plugboardConnections)
     {
         this.leftRotor = Rotor.Create(rotors[0], rotorPositions[0], ringSettings[0]);
@@ -52,7 +62,10 @@ public class Enigma {
     
     
 
-
+/**
+ * turns rotors over when we reach a notch, M3 contains a double-step
+ * turns rotors over when we reach a notch, Abwehr does not contain a double-step but reflector steps when the left most rotor reaches a notch
+ */
     public void rotate(){
         if(Main.machineModel.equalsIgnoreCase("M3")){
             if(middleRotor.isAtNotch()){
@@ -115,7 +128,7 @@ public class Enigma {
     }
 
     /**
-     * 
+     * Encryption
      * 
      * @param c
      * @return
@@ -125,7 +138,7 @@ public class Enigma {
     }
 
     /**
-     * 
+     * Encryption 
      * 
      * @param input
      * @return

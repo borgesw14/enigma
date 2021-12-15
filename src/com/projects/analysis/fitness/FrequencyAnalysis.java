@@ -8,7 +8,11 @@ public class FrequencyAnalysis {
         this.total = 0;
         this.counts = new float[26];
     }
-
+/**
+ * Calculates frequency
+ * 
+ * @param text
+ */
     public void analyse(byte[] text) {
         for (byte b : text) {
             this.counts[b]++;

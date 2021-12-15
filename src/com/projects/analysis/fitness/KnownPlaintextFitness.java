@@ -8,7 +8,7 @@ public class KnownPlaintextFitness extends FitnessFunction {
     }
 
     /**
-     * 
+     * Fitness of the known text input
      * 
      * @param words
      * @param offsets

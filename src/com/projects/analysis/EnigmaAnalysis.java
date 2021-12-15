@@ -61,7 +61,7 @@ public class EnigmaAnalysis {
                         for (int i = 0; i < 26; i++) {
                             for (int j = 0; j < 26; j++) {
                                     for (int k = 0; k < 26; k++) {
-                                            Enigma e = new Enigma(new String[] { rotor1, rotor2, rotor3 }, "G",
+                                            Enigma e = new Enigma(new String[] { rotor1, rotor2, rotor3 }, "G",0,
                                                     new int[] { i, j, k }, new int[] { 0, 0, 0 }, plugboard);
                                             char[] decryption = e.encrypt(ciphertext);
                                             float fitness = f.score(decryption);
@@ -198,15 +198,14 @@ public class EnigmaAnalysis {
 
         if(Main.machineModel.equalsIgnoreCase("Abwehr")){
             float maxFitness = -1e30f;
-            for (int i = 0; i < 26; i++) 
-            {
+            for (int i = 0; i < 26; i++) {
                 int[] currentStartingPositions = Arrays.copyOf(originalIndicators, 3);
                 int[] currentRingSettings = Arrays.copyOf(originalRingSettings, 3);
 
                 currentStartingPositions[rotor] = Math.floorMod(currentStartingPositions[rotor] + i, 26);
                 currentRingSettings[rotor] = i;
 
-                Enigma e = new Enigma(rotors, "G",currentStartingPositions, currentRingSettings, plugboard);
+                Enigma e = new Enigma(rotors, "G",0, currentStartingPositions, currentRingSettings, plugboard);
                 char[] decryption = e.encrypt(ciphertext);
                 float fitness = f.score(decryption);
                 if (fitness > maxFitness) {
@@ -238,6 +237,14 @@ public class EnigmaAnalysis {
         }
     }
 
+    /**
+     * this method definetly needs work for the correct setting to be found.
+     * 
+     * @param key
+     * @param ciphertext
+     * @param f
+     * @return
+     */
     public static ScoredEnigmaKey findReflectorSettings(EnigmaKey key, char[] ciphertext, FitnessFunction f) {
         
                 EnigmaKey newKey = new EnigmaKey(key);
@@ -250,7 +257,15 @@ public class EnigmaAnalysis {
                 char[] decryption = e.encrypt(ciphertext);
                 return new ScoredEnigmaKey(newKey, f.score(decryption));
     }
-
+    
+    /**
+     * cycles through different reflector positions and returns a scored enigma key based on fitness function.
+     * 
+     * @param key
+     * @param ciphertext
+     * @param f
+     * @return
+     */
     public static int findReflectorSetting(EnigmaKey key, char[] ciphertext, FitnessFunction f)
     {
         String[] rotors = key.rotors;
@@ -270,6 +285,7 @@ public class EnigmaAnalysis {
                     maxFitness = fitness;
                     optimalReflectorPosition = i;
                 }
+
             }
             return optimalReflectorPosition;
     }
